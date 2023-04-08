@@ -2,7 +2,8 @@ const { Configuration, OpenAIApi } = require("openai");
 const readlineSync = require("readline-sync");
 const dotenv = require("dotenv").config();
 
-const voice = require("whisperHandler");
+const voice = require("./whisperHandler.js");
+const config = require("./config.json");
 
 (async () => {
     const configuration = new Configuration({
@@ -10,7 +11,7 @@ const voice = require("whisperHandler");
     });
     const openai = new OpenAIApi(configuration);
 
-    const history = [];
+    const history = [[config.gpt.prompt, config.gpt.promptResponse]];
 
     while (true) {
         const input = readlineSync.question("> ");
