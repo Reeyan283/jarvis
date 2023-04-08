@@ -4,8 +4,12 @@ const dotenv = require("dotenv").config();
 
 const voice = require("./whisperHandler.js");
 const commandHandler = require("./commandHandler.js");
+const speechHandler = require("./speechHandler.js");
 const config = require("./config.json");
 
+speechHandler.say(commandHandler.parseString("The time is {getTime()}"));
+
+/*
 (async () => {
     const configuration = new Configuration({
         apiKey: process.env.OPENAI_API_KEY,
@@ -51,3 +55,5 @@ const config = require("./config.json");
         }
     }
 })();
+
+*/

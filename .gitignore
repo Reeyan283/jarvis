@@ -26,4 +26,4 @@ node_modules/
 # Mac files
 .DS_Store
 recording.wav
-recording.wav.mp3
+temp.mp3
