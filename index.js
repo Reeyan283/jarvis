@@ -3,6 +3,7 @@ const readlineSync = require("readline-sync");
 const dotenv = require("dotenv").config();
 
 const voice = require("./whisperHandler.js");
+const commandHandler = require("./commandHandler.js");
 const config = require("./config.json");
 
 (async () => {
@@ -34,10 +35,12 @@ const config = require("./config.json");
                 messages: messages
             });
 
-            const competion_text = completion.data.choices[0].message.content;
-            console.log(`> ${competion_text}`);
+            const completion_text = completion.data.choices[0].message.content;
+            console.log(completion_text);
+            let output = commandHandler.parseString(completion_text);
+            console.log(`> ${output}`);
 
-            history.push([input, competion_text]);
+            history.push([input, completion_text]);
         } catch (error) {
             if (error.response) {
                 console.log(error.response.status);
