@@ -21,6 +21,7 @@ const options = {
 };
 
 async function say(text) {
+    console.log("Saying:" + text);
     return new Promise(async (resolve, reject) => {
 
         const { playAudioFile } = await import("audic");

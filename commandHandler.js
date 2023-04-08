@@ -3,24 +3,28 @@ module.exports = {
     parseString
 }
 
-function parseString(string) {
-    if (!(/{.*}/.test(string))) {
-        return string;
-    }
-
-    let regex = /{([^}]+)}/g;
-    
-    string = string.replace(regex, (_, match) => {
-        let command = match.substring(0, match.indexOf("("));
-        if (!(command in functionMap)) {
-            return "";
+async function parseString(string) {
+    return new Promise(async (resolve, reject) => {
+        if (!(/{.*}/.test(string))) {
+            resolve(string);
         }
 
-        let args = match.substring(match.indexOf("(") + 1, match.indexOf(")")).split(",");
-        return functionMap[command](...args);
-    });
+        let regex = /{([^}]+)}/g;
+        
+        string = string.replace(regex, (_, match) => {
+            let command = match.substring(0, match.indexOf("("));
+            if (!(command in functionMap)) {
+                return "";
+            }
 
-    return string;
+            let args = match.substring(match.indexOf("(") + 1, match.indexOf(")")).split(",");
+            return functionMap[command](...args);
+        });
+
+        console.log("Formatted Output:" + string);
+
+        resolve(string);
+    });
 }
 
 /* Commands */
@@ -38,4 +42,5 @@ function getTime() {
 }
 
 function open(application) {
+    return "";
 }

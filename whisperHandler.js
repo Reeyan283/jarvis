@@ -6,6 +6,11 @@ const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 const { Configuration, OpenAIApi } = require("openai");
 
 const config = require("./config.json");
+const record = require("./emmiters.js");
+
+module.exports = {
+    micToTranscription
+}
 
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
@@ -14,9 +19,11 @@ const openai = new OpenAIApi(configuration);
 ffmpeg.setFfmpegPath(config.path.ffmpeg);
 
 async function micToTranscription() {
-    //await recordAudio(config.path.recording);
+    await recordAudio(config.path.recording);
     const transcription = await transcribeAudio(config.path.recording);
     console.log('Transcription:', transcription);
+
+    return transcription;
 }
 
 function recordAudio(filename) {
@@ -37,7 +44,7 @@ function recordAudio(filename) {
 
         micInstance.start();
 
-        process.on("SIGINT", () => {
+        record.once("end", () => {
             micInstance.stop();
             console.log("Stopped recording audio.");
             resolve();
@@ -58,7 +65,6 @@ async function transcribeAudio(filename) {
                     fs.createReadStream(filename+".mp3"),
                     "whisper-1"
                 );
-                console.log(transcript.data.text)
                 resolve(transcript.data.text);
             })
             .on("error", (err) => {
