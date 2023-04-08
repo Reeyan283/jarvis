@@ -1,4 +1,3 @@
-const readlineSync = require("readline-sync");
 const dotenv = require("dotenv").config();
 const fs = require("fs");
 
@@ -9,9 +8,7 @@ const gptHandler = require("./gptHandler.js");
 const record = require("./emmiters.js");
 const config = require("./config.json");
 
-record.on("start", async () => {
-    console.log("Started!");
-    
+record.on("start", async () => {   
     let input = await voice.micToTranscription();
     let output = await gptHandler.getGPTResponse(input);
     output = await commandHandler.parseString(output);

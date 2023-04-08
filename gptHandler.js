@@ -1,6 +1,4 @@
 const { Configuration, OpenAIApi } = require("openai");
-const readlineSync = require("readline-sync");
-const dotenv = require("dotenv").config();
 
 const config = require("./config.json");
 

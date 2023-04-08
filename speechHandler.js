@@ -1,5 +1,4 @@
 const https = require('https');
-const dotenv = require("dotenv").config();
 const fs = require("fs");
 
 const config = require("./config.json")
