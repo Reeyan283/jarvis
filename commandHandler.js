@@ -17,7 +17,6 @@ function parseString(string) {
         }
 
         let args = match.substring(match.indexOf("(") + 1, match.indexOf(")")).split(",");
-        console.log(args);
         return functionMap[command](...args);
     });
 
@@ -32,8 +31,10 @@ const functionMap = {
 }
 
 function getTime() {
-    let date = new Date();
-    return date.toLocaleTimeString();
+    let now = new Date();
+    let hours = now.getHours().toString().padStart(2, '0');
+    let minutes = now.getMinutes().toString().padStart(2, '0');
+    return `${hours} ${minutes}`;
 }
 
 function open(application) {
