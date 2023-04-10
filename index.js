@@ -28,6 +28,7 @@ fs.watchFile("./translator.txt", {
             }
 
             if (data == "1") {
+                record.emit("end");
                 record.emit("start");
             } else {
                 record.emit("end");
